@@ -16,7 +16,7 @@ export function AboutSection() {
     >
       {/* Background aesthetic elements */}
       <div
-        className="absolute top-0 right-0 w-full h-full opacity-[0.25] pointer-events-none grayscale mix-blend-luminosity transform md:scale-150 scale-100 origin-top-right md:translate-x-1/4 md:-translate-y-1/4 translate-x-0 translate-y-0 blur-sm"
+        className="absolute top-0 right-0 w-full h-full opacity-[0.25] pointer-events-none grayscale mix-blend-luminosity transform md:scale-150 scale-[0.5] origin-top-right md:translate-x-1/4 md:-translate-y-1/4 translate-x-0 translate-y-0 blur-sm"
         style={{
           backgroundImage: "url(/french-montana-coupe-du-monde-des-clubs.webp)",
           backgroundSize: "cover",

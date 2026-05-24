@@ -9,7 +9,7 @@ export function Hero() {
   useEffect(() => {
     const handleVideoLoad = () => {
       if (window.innerWidth <= 768 && videoRef.current) {
-        videoRef.current.currentTime = 8;
+        videoRef.current.currentTime = 10;
       }
     };
 
@@ -41,7 +41,7 @@ export function Hero() {
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover max-md:scale-[0.7]"
+        className="absolute inset-0 w-full h-full object-cover max-md:object-fill"
       >
         <source
           src="https://res.cloudinary.com/dmnoikwb9/video/upload/hero_s92vfw.mp4"
