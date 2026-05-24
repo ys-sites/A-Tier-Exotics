@@ -266,6 +266,7 @@
 @media (max-width: 768px) {
   .card-stream {
     height: 300px;
+    transform: translate(-50%, -50%) scale(0.7);
   }
   .card-wrapper {
     width: 280px;

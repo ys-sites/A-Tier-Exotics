@@ -41,7 +41,7 @@ export function Hero() {
         muted
         loop
         playsInline
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover max-md:scale-[0.7]"
       >
         <source
           src="https://res.cloudinary.com/dmnoikwb9/video/upload/hero_s92vfw.mp4"
