@@ -1,40 +1,43 @@
 import { motion } from "motion/react";
 import ShinyText from "./ui/ShinyText";
 import BlurText from "./ui/BlurText";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoSrc, setVideoSrc] = useState(
+    "https://res.cloudinary.com/dmnoikwb9/video/upload/hero_s92vfw.mp4"
+  );
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    const handleVideoLoad = () => {
-      if (window.innerWidth <= 768) {
-        video.currentTime = 10;
-        video.play().catch((err) => console.log("Autoplay play failed:", err));
-      }
-    };
+    if (window.innerWidth <= 768) {
+      setVideoSrc(
+        "https://res.cloudinary.com/dmnoikwb9/video/upload/hero_s92vfw.mp4#t=10"
+      );
+    }
 
     const handleVideoEnd = () => {
       video.currentTime = window.innerWidth <= 768 ? 10 : 0;
       video.play().catch((err) => console.log("Video loop failed:", err));
     };
 
-    if (video.readyState >= 1) {
-      handleVideoLoad();
-    } else {
-      video.addEventListener("loadedmetadata", handleVideoLoad);
-    }
-
     video.addEventListener("ended", handleVideoEnd);
 
     return () => {
-      video.removeEventListener("loadedmetadata", handleVideoLoad);
       video.removeEventListener("ended", handleVideoEnd);
     };
   }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      video.load();
+      video.play().catch((err) => console.log("Autoplay play failed:", err));
+    }
+  }, [videoSrc]);
 
   const scrollToBooking = () => {
     document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" });
@@ -48,17 +51,13 @@ export function Hero() {
       {/* Video Background */}
       <video
         ref={videoRef}
+        src={videoSrc}
         autoPlay
         muted
         playsInline
         className="absolute top-0 left-0 w-full h-[72vh] md:h-full object-cover"
         style={{ objectFit: "cover" }}
       >
-        <source
-          src="https://res.cloudinary.com/dmnoikwb9/video/upload/hero_s92vfw.mp4"
-          type="video/mp4"
-        />
-      </video>
 
       {/* Dark luxury overlay to ensure text readability */}
       <div className="absolute top-0 left-0 w-full h-[72vh] md:h-full bg-gradient-to-t from-black via-black/20 to-transparent z-10" />
