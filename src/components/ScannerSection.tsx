@@ -311,7 +311,7 @@ export function ScannerSection() {
     let animationId: number;
 
     const friction = 0.95;
-    const minVelocity = 30;
+    const minVelocity = 60; // Increased from 30 for faster but smooth animation
     let containerWidth = containerRef.current.offsetWidth;
     const cardWidth = 480;
     const cardGap = 60;
