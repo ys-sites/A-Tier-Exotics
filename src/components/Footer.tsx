@@ -23,7 +23,7 @@ export function Footer() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500 font-light">
         <div className="text-center md:text-left">
-          &copy; {new Date().getFullYear()} A Tier Exotics. All Rights Reserved. Booking powered by AutoFlow.
+          &copy; {new Date().getFullYear()} A Tier Exotics. All Rights Reserved.
         </div>
         <div className="flex justify-center md:justify-end">
           <a 

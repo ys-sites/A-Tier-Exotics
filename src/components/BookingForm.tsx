@@ -85,7 +85,7 @@ export function BookingForm() {
               />
               <div>
                 <h5 className="text-white font-semibold mb-1">
-                  AutoFlow Secure Routing
+                  Secure Booking Routing
                 </h5>
                 <p className="text-gray-400 text-sm font-light">
                   Inquiries safely logged. Calendar synchronization and email
@@ -121,7 +121,7 @@ export function BookingForm() {
                       Inquiry Received
                     </h3>
                     <p className="text-gray-400 font-light mx-auto mb-10 leading-relaxed text-lg">
-                      Your request via AutoFlow was successful. An email
+                      Your request was successful. An email
                       itinerary has been dispatched, and a concierge will
                       contact you shortly.
                     </p>
@@ -138,7 +138,7 @@ export function BookingForm() {
                       <div className="absolute inset-0 z-20 bg-brand-dark/90 backdrop-blur-sm flex flex-col items-center justify-center rounded-[32px]">
                         <div className="w-12 h-12 border-2 border-brand-accent/30 border-t-brand-accent rounded-full animate-spin mb-6" />
                         <p className="text-white font-semibold tracking-wide text-sm">
-                          Syncing AutoFlow...
+                          Sending request...
                         </p>
                       </div>
                     )}
