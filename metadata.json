@@ -1,0 +1,6 @@
+{
+  "name": "A Tier Exotics",
+  "description": "High-end chauffeur service featuring the 2026 Rolls-Royce Cullinan. Premium luxury transportation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
