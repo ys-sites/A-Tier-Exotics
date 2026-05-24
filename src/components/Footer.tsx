@@ -38,7 +38,7 @@ export function Footer() {
               className="h-3.5 w-auto object-contain brightness-90 group-hover:scale-105 transition-all duration-300"
             />
             <span className="text-[10px] text-gray-400 group-hover:text-gray-300 transition-colors duration-300 font-light leading-none">
-              Made by <span className="font-semibold text-white group-hover:text-brand-accent transition-colors duration-300">Noor AI</span> <span className="text-white/10 mx-1">|</span> AI Consultant Agency
+              Made by{"\u00A0"}<span className="font-semibold text-white group-hover:text-brand-accent transition-colors duration-300">Noor AI</span> <span className="text-white/10 mx-1">|</span> AI Consultant Agency
             </span>
           </a>
         </div>
