@@ -38,7 +38,7 @@ export function Footer() {
               className="h-3.5 w-auto object-contain brightness-90 group-hover:scale-105 transition-all duration-300"
             />
             <div className="flex items-center gap-1.5 text-[10px] text-gray-500 group-hover:text-gray-300 transition-colors duration-300 font-light leading-none">
-              <span className="font-medium text-gray-400 group-hover:text-white transition-colors duration-300">Noor AI</span>
+              <span className="font-medium text-gray-400 group-hover:text-white transition-colors duration-300">Made by Noor AI</span>
               <span className="text-white/10">|</span>
               <span>AI Consultant Agency</span>
             </div>
