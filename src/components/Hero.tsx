@@ -7,21 +7,24 @@ export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
     const handleVideoLoad = () => {
-      if (window.innerWidth <= 768 && videoRef.current) {
-        videoRef.current.currentTime = 10;
+      if (window.innerWidth <= 768) {
+        video.currentTime = 10;
+        video.play().catch((err) => console.log("Autoplay play failed:", err));
       }
     };
 
-    if (videoRef.current) {
-      videoRef.current.addEventListener("loadedmetadata", handleVideoLoad);
+    if (video.readyState >= 1) {
       handleVideoLoad();
+    } else {
+      video.addEventListener("loadedmetadata", handleVideoLoad);
     }
-    
+
     return () => {
-      if (videoRef.current) {
-        videoRef.current.removeEventListener("loadedmetadata", handleVideoLoad);
-      }
+      video.removeEventListener("loadedmetadata", handleVideoLoad);
     };
   }, []);
 
