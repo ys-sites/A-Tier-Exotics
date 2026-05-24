@@ -17,14 +17,22 @@ export function Hero() {
       }
     };
 
+    const handleVideoEnd = () => {
+      video.currentTime = window.innerWidth <= 768 ? 10 : 0;
+      video.play().catch((err) => console.log("Video loop failed:", err));
+    };
+
     if (video.readyState >= 1) {
       handleVideoLoad();
     } else {
       video.addEventListener("loadedmetadata", handleVideoLoad);
     }
 
+    video.addEventListener("ended", handleVideoEnd);
+
     return () => {
       video.removeEventListener("loadedmetadata", handleVideoLoad);
+      video.removeEventListener("ended", handleVideoEnd);
     };
   }, []);
 
@@ -42,7 +50,6 @@ export function Hero() {
         ref={videoRef}
         autoPlay
         muted
-        loop
         playsInline
         className="absolute top-0 left-0 w-full h-[72vh] md:h-full object-cover"
         style={{ objectFit: "cover" }}
