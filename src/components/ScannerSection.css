@@ -262,3 +262,24 @@
     transform: translateX(-50%);
   }
 }
+
+@media (max-width: 768px) {
+  .card-stream {
+    height: 300px;
+  }
+  .card-wrapper {
+    width: 280px;
+    height: 300px;
+  }
+  .sc-card {
+    width: 280px;
+    height: 300px;
+  }
+  .card-ascii {
+    width: 280px;
+    height: 300px;
+  }
+  .card-line {
+    gap: 30px;
+  }
+}

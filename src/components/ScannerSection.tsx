@@ -102,8 +102,11 @@ export function ScannerSection() {
   useEffect(() => {
     // Generate initial cards
     const initialCards: string[] = [];
+    const isMobile = window.innerWidth <= 768;
+    const cw = isMobile ? 280 : 480;
+    const ch = isMobile ? 300 : 360;
     for (let i = 0; i < 30; i++) {
-      const { width, height } = calculateCodeDimensions(480, 360);
+      const { width, height } = calculateCodeDimensions(cw, ch);
       initialCards.push(generateCode(width, height));
     }
     setCards(initialCards);
@@ -313,8 +316,9 @@ export function ScannerSection() {
     const friction = 0.95;
     const minVelocity = 60; // Increased from 30 for faster but smooth animation
     let containerWidth = containerRef.current.offsetWidth;
-    const cardWidth = 480;
-    const cardGap = 60;
+    const isMobile = window.innerWidth <= 768;
+    const cardWidth = isMobile ? 280 : 480;
+    const cardGap = isMobile ? 30 : 60;
     const cardCount = cardLine.children.length || 30;
     let cardLineWidth = (cardWidth + cardGap) * cardCount;
 

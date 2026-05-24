@@ -1,8 +1,30 @@
 import { motion } from "motion/react";
 import ShinyText from "./ui/ShinyText";
 import BlurText from "./ui/BlurText";
+import { useEffect, useRef } from "react";
 
 export function Hero() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const handleVideoLoad = () => {
+      if (window.innerWidth <= 768 && videoRef.current) {
+        videoRef.current.currentTime = 8;
+      }
+    };
+
+    if (videoRef.current) {
+      videoRef.current.addEventListener("loadedmetadata", handleVideoLoad);
+      handleVideoLoad();
+    }
+    
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.removeEventListener("loadedmetadata", handleVideoLoad);
+      }
+    };
+  }, []);
+
   const scrollToBooking = () => {
     document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -14,6 +36,7 @@ export function Hero() {
     >
       {/* Video Background */}
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
