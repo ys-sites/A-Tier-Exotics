@@ -14,34 +14,26 @@ export function Footer() {
         </div>
 
         {/* Center Column: Noor AI Call to Action */}
-        <div className="flex flex-col items-center justify-center text-center">
+        <div className="flex items-center justify-center">
           <a 
             href="https://noor-ai.com" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="group relative flex flex-col items-center gap-2.5 p-4 rounded-2xl bg-white/[0.02] hover:bg-white/[0.05] border border-white/5 hover:border-brand-accent/20 transition-all duration-500 max-w-sm"
+            className="group flex items-center gap-3 px-4 py-2 rounded-full bg-white/[0.02] hover:bg-white/[0.06] border border-white/5 hover:border-brand-accent/20 transition-all duration-300"
           >
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] text-gray-400 font-light tracking-wider uppercase group-hover:text-white transition-colors duration-300">
-                Communication by
+            <img 
+              src="/noor.png" 
+              alt="Noor AI" 
+              className="h-5 w-auto object-contain brightness-95 contrast-105 group-hover:scale-105 transition-transform duration-300"
+            />
+            <div className="flex flex-col items-start text-left leading-none">
+              <span className="text-xs font-semibold text-white tracking-wider group-hover:text-brand-accent transition-colors duration-300">
+                Noor AI
               </span>
-              <img 
-                src="/noor.png" 
-                alt="Noor AI" 
-                className="h-5 w-auto object-contain brightness-95 contrast-105 group-hover:scale-105 transition-transform duration-300"
-              />
+              <span className="text-[9px] text-gray-400 font-light uppercase tracking-wider mt-0.5">
+                AI Receptionist
+              </span>
             </div>
-            
-            <p className="text-[11px] text-gray-400 group-hover:text-gray-300 transition-colors duration-300 leading-relaxed font-light">
-              Your AI receptionist answers every call 24/7 — nights, weekends, holidays. Speaks English & Spanish. Books appointments, qualifies leads, and transfers calls seamlessly. No missed calls. No missed sales.
-            </p>
-
-            <span className="inline-flex items-center gap-1 text-[11px] text-brand-accent font-semibold tracking-wider uppercase mt-1 group-hover:text-brand-accent transition-colors duration-300">
-              Deploy Your Receptionist
-              <svg className="w-3 h-3 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
-              </svg>
-            </span>
           </a>
         </div>
         
