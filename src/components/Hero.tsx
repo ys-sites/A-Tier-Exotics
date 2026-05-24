@@ -44,7 +44,7 @@ export function Hero() {
         muted
         loop
         playsInline
-        className="absolute top-0 left-0 w-full h-[82vh] md:h-full object-cover"
+        className="absolute top-0 left-0 w-full h-[72vh] md:h-full object-cover"
         style={{ objectFit: "cover" }}
       >
         <source
@@ -54,8 +54,8 @@ export function Hero() {
       </video>
 
       {/* Dark luxury overlay to ensure text readability */}
-      <div className="absolute top-0 left-0 w-full h-[82vh] md:h-full bg-gradient-to-t from-black via-black/20 to-transparent z-10" />
-      <div className="absolute top-0 left-0 w-full h-[82vh] md:h-full bg-black/10 z-10" />
+      <div className="absolute top-0 left-0 w-full h-[72vh] md:h-full bg-gradient-to-t from-black via-black/20 to-transparent z-10" />
+      <div className="absolute top-0 left-0 w-full h-[72vh] md:h-full bg-black/10 z-10" />
 
       {/* Hero content */}
       <div className="relative z-20 flex-1 flex flex-col items-center justify-center px-6 py-12 text-center h-full w-full max-w-5xl mx-auto mt-20">
