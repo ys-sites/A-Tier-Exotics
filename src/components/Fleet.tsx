@@ -8,7 +8,7 @@ export function Fleet() {
       className="py-24 bg-brand-gray relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="w-full space-y-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* Text Content */}
           <div>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter mb-2 leading-tight flex items-center shrink-0">
@@ -37,6 +37,15 @@ export function Fleet() {
               <li>Complimentary VIP Concierge</li>
               <li>Refreshments Provided</li>
             </ul>
+          </div>
+
+          {/* Image for tablet and desktop */}
+          <div className="hidden md:flex justify-center items-center w-full">
+            <img
+              src="/royce.avif"
+              alt="2026 Rolls-Royce Cullinan"
+              className="w-full h-auto max-w-xl rounded-3xl object-cover"
+            />
           </div>
 
           {/* Image - Mobile Only */}
