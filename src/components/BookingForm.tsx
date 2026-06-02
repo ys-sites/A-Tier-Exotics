@@ -41,7 +41,7 @@ export function BookingForm() {
   return (
     <section
       id="booking"
-      className="mt-20 pt-20 pb-24 bg-brand-gray relative overflow-hidden"
+      className="pt-12 md:pt-20 md:mt-20 pb-24 bg-brand-gray relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
@@ -78,7 +78,7 @@ export function BookingForm() {
               </a>
             </div>
 
-            <div className="flex items-start gap-4 p-6 rounded-[24px] bg-brand-dark border border-white/5">
+            <div className="flex items-start gap-4 p-6 rounded-[24px] bg-brand-dark border border-white/5 mt-8 md:mt-0">
               <Shield
                 className="text-brand-accent flex-shrink-0 mt-1"
                 size={20}
@@ -190,31 +190,30 @@ export function BookingForm() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <div className="relative">
-                          <Clock
-                            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"
-                            size={18}
-                          />
-                          <input
-                            required
-                            type="datetime-local"
-                            className="w-full bg-brand-gray border border-white/5 py-4 pl-12 pr-4 text-white text-sm rounded-[20px] focus:outline-none focus:border-brand-accent transition-all opacity-80 hover:opacity-100 placeholder-gray-500"
-                          />
-                        </div>
+                    <div>
+                      <div className="relative">
+                        <Clock
+                          className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"
+                          size={18}
+                        />
+                        <input
+                          required
+                          type="datetime-local"
+                          className="w-full bg-brand-gray border border-white/5 py-3 md:py-4 pl-12 pr-4 text-white text-sm md:text-base rounded-[20px] focus:outline-none focus:border-brand-accent transition-all opacity-100 placeholder-gray-500"
+                        />
                       </div>
-                      <div>
-                        <select className="w-full bg-brand-gray border border-white/5 py-4 px-6 text-white text-sm rounded-[20px] focus:outline-none focus:border-brand-accent transition-all appearance-none">
-                          <option value="transfer">
-                            Point-to-Point Transfer
-                          </option>
-                          <option value="hourly">
-                            Hourly/As-Directed (~$40/mi)
-                          </option>
-                          <option value="airport">Airport VIP Service</option>
-                        </select>
-                      </div>
+                    </div>
+
+                    <div>
+                      <select className="w-full bg-brand-gray border border-white/5 py-3 md:py-4 px-6 text-white text-sm md:text-base rounded-[20px] focus:outline-none focus:border-brand-accent transition-all appearance-none">
+                        <option value="transfer">
+                          Point-to-Point Transfer
+                        </option>
+                        <option value="hourly">
+                          Hourly/As-Directed (~$40/mi)
+                        </option>
+                        <option value="airport">Airport VIP Service</option>
+                      </select>
                     </div>
 
                     <div>

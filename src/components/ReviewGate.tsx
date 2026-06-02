@@ -3,15 +3,22 @@ import { Star } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import ShinyText from "./ui/ShinyText";
 
+type ReviewStage = "rating" | "feedback" | "thanks";
+
 export function ReviewGate() {
   const [rating, setRating] = useState<number>(0);
   const [hoveredRating, setHoveredRating] = useState<number>(0);
-  const [submitted, setSubmitted] = useState(false);
+  const [stage, setStage] = useState<ReviewStage>("rating");
+  const [feedback, setFeedback] = useState("");
   const [showGate, setShowGate] = useState(false);
 
   useEffect(() => {
     const handleHashChange = () => {
-      setShowGate(window.location.hash === "#review");
+      const isReview = window.location.hash === "#review";
+      setShowGate(isReview);
+      if (!isReview) {
+        resetReview();
+      }
     };
 
     // Check initial hash
@@ -21,8 +28,15 @@ export function ReviewGate() {
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
+  const resetReview = () => {
+    setStage("rating");
+    setRating(0);
+    setFeedback("");
+  };
+
   const closeGate = () => {
     window.location.hash = "";
+    resetReview();
   };
 
   const handleRating = (rate: number) => {
