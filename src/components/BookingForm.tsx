@@ -204,11 +204,49 @@ export function BookingForm() {
                           className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 z-10 pointer-events-none"
                           size={18}
                         />
+
+                        {/* Desktop native picker */}
                         <input
                           required
                           type="datetime-local"
-                          className="w-full bg-brand-gray border border-white/5 py-3 md:py-4 pl-12 pr-4 text-white text-sm md:text-base rounded-[20px] focus:outline-none focus:border-brand-accent transition-all opacity-100 placeholder-gray-500 max-w-full"
+                          value={formState.date}
+                          onChange={(e) =>
+                            setFormState((prev) => ({
+                              ...prev,
+                              date: e.target.value,
+                            }))
+                          }
+                          className="hidden md:block w-full bg-brand-gray border border-white/5 py-4 pl-12 pr-4 text-white text-sm md:text-base rounded-[20px] focus:outline-none focus:border-brand-accent transition-all max-w-full"
                         />
+
+                        {/* Mobile styled picker overlay */}
+                        <div className="md:hidden relative">
+                          <div className="w-full bg-brand-gray border border-white/5 rounded-[20px] py-4 pl-12 pr-4 text-white text-sm flex items-center transition-all">
+                            <span className={formState.date ? "text-white" : "text-gray-500"}>
+                              {formState.date
+                                ? new Date(formState.date).toLocaleString("en-US", {
+                                    month: "short",
+                                    day: "numeric",
+                                    year: "numeric",
+                                    hour: "numeric",
+                                    minute: "2-digit",
+                                  })
+                                : "Calendar Booking"}
+                            </span>
+                          </div>
+                          <input
+                            required
+                            type="datetime-local"
+                            value={formState.date}
+                            onChange={(e) =>
+                              setFormState((prev) => ({
+                                ...prev,
+                                date: e.target.value,
+                              }))
+                            }
+                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                          />
+                        </div>
                       </div>
                     </div>
 
