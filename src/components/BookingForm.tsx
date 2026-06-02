@@ -44,9 +44,9 @@ export function BookingForm() {
       className="pt-12 md:pt-20 md:mt-20 pb-24 bg-brand-gray relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-6">
           {/* Informational Side */}
-          <div className="space-y-10 flex flex-col justify-center">
+          <div className="space-y-6 md:space-y-10 flex flex-col justify-center">
             <div>
               <h2 className="text-5xl font-bold tracking-tighter mb-6">
                 <ShinyText className="text-brand-accent">
@@ -102,7 +102,7 @@ export function BookingForm() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="mobile-scale-70 mt-16 md:mt-0"
+            className="mobile-scale-70"
           >
             <SpotlightCard
               spotlightColor="rgba(224, 205, 173, 0.4)"

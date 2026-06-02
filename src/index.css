@@ -40,8 +40,8 @@ h1, h2, h3, h4, h5, h6 {
   .mobile-scale-70 {
     transform: scale(0.7);
     transform-origin: center center;
-    margin-top: -90px;
-    margin-bottom: -90px;
+    margin-top: 24px;
+    margin-bottom: 24px;
     /* Ensure form spacing on mobile */
     padding-top: 2rem;
   }
