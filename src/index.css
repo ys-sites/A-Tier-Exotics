@@ -43,4 +43,17 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: -90px;
     margin-bottom: -90px;
   }
+
+  /* Prevent select element overflow on mobile */
+  select {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Ensure form containers don't overflow */
+  form {
+    overflow-x: hidden;
+  }
 }

@@ -102,7 +102,7 @@ export function BookingForm() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="mobile-scale-70"
+            className="mobile-scale-70 mt-8 md:mt-0"
           >
             <SpotlightCard
               spotlightColor="rgba(224, 205, 173, 0.4)"
@@ -134,7 +134,7 @@ export function BookingForm() {
                     </button>
                   </motion.div>
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6 relative">
+                  <form onSubmit={handleSubmit} className="space-y-6 relative overflow-x-hidden">
                     {status === "submitting" && (
                       <div className="absolute inset-0 z-20 bg-brand-dark/90 backdrop-blur-sm flex flex-col items-center justify-center rounded-[32px]">
                         <div className="w-12 h-12 border-2 border-brand-accent/30 border-t-brand-accent rounded-full animate-spin mb-6" />
@@ -204,8 +204,8 @@ export function BookingForm() {
                       </div>
                     </div>
 
-                    <div>
-                      <select className="w-full bg-brand-gray border border-white/5 py-3 md:py-4 px-6 text-white text-sm md:text-base rounded-[20px] focus:outline-none focus:border-brand-accent transition-all appearance-none">
+                    <div className="max-w-full overflow-hidden">
+                      <select className="w-full max-w-full bg-brand-gray border border-white/5 py-3 md:py-4 px-6 text-white text-sm md:text-base rounded-[20px] focus:outline-none focus:border-brand-accent transition-all appearance-none overflow-hidden">
                         <option value="transfer">
                           Point-to-Point Transfer
                         </option>
