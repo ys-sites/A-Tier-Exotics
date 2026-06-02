@@ -191,15 +191,15 @@ export function BookingForm() {
                     </div>
 
                     <div>
-                      <div className="relative">
+                      <div className="relative max-w-full overflow-hidden">
                         <Clock
-                          className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"
+                          className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 z-10 pointer-events-none"
                           size={18}
                         />
                         <input
                           required
                           type="datetime-local"
-                          className="w-full bg-brand-gray border border-white/5 py-3 md:py-4 pl-12 pr-4 text-white text-sm md:text-base rounded-[20px] focus:outline-none focus:border-brand-accent transition-all opacity-100 placeholder-gray-500"
+                          className="w-full bg-brand-gray border border-white/5 py-3 md:py-4 pl-12 pr-4 text-white text-sm md:text-base rounded-[20px] focus:outline-none focus:border-brand-accent transition-all opacity-100 placeholder-gray-500 max-w-full"
                         />
                       </div>
                     </div>
