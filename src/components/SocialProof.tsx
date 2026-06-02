@@ -58,8 +58,8 @@ export function SocialProof() {
       id="experience"
       className="py-24 bg-brand-dark relative overflow-hidden"
     >
-      <div className="absolute top-0 md:top-1/2 right-0 w-1/3 h-1/2 bg-brand-accent/5 blur-[150px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-1/4 md:h-1/2 h-1/4 bg-brand-gray/50 blur-[150px] rounded-full pointer-events-none" />
+      <div className="hidden md:block absolute top-0 md:top-1/2 right-0 w-1/3 h-1/2 bg-brand-accent/5 blur-[150px] rounded-full pointer-events-none" />
+      <div className="hidden md:block absolute bottom-0 left-0 w-1/4 md:h-1/2 h-1/4 bg-brand-gray/50 blur-[150px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-16">
         <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-white/10 pb-10">
