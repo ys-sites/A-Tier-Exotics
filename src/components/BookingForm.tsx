@@ -102,7 +102,7 @@ export function BookingForm() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="mobile-scale-70 mt-8 md:mt-0"
+            className="mobile-scale-70 mt-16 md:mt-0"
           >
             <SpotlightCard
               spotlightColor="rgba(224, 205, 173, 0.4)"
