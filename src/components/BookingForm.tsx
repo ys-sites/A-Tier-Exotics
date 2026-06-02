@@ -109,6 +109,14 @@ export function BookingForm() {
               className="w-full h-full"
             >
               <div className="p-8 md:p-12 relative overflow-hidden rounded-[24px] z-10 w-full h-full">
+                <div className="mb-8">
+                  <h3 className="text-3xl font-bold tracking-tight text-white">
+                    Calendar Booking
+                  </h3>
+                  <p className="text-gray-400 text-sm font-light mt-2">
+                    Select your preferred date and time to schedule your luxury transfer.
+                  </p>
+                </div>
                 {status === "success" ? (
                   <motion.div
                     initial={{ opacity: 0 }}
