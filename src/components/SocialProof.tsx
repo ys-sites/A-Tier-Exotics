@@ -117,10 +117,6 @@ export function SocialProof() {
           </div>
         </div>
       </div>
-
-      {/* Edge Gradients for fading effect */}
-      <div className="absolute top-0 bottom-0 left-0 w-32 bg-gradient-to-r from-brand-dark to-transparent z-20 pointer-events-none" />
-      <div className="absolute top-0 bottom-0 right-0 w-32 bg-gradient-to-l from-brand-dark to-transparent z-20 pointer-events-none" />
     </section>
   );
 }
