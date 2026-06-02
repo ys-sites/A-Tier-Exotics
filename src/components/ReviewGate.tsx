@@ -41,7 +41,6 @@ export function ReviewGate() {
 
   const handleRating = (rate: number) => {
     setRating(rate);
-    setSubmitted(true);
 
     if (rate === 5) {
       // Redirect to Google Reviews after a brief delay
@@ -51,17 +50,19 @@ export function ReviewGate() {
           "_blank",
         );
         closeGate();
-        setSubmitted(false);
-        setRating(0);
       }, 1500);
     } else {
-      // Just show thank you message
-      setTimeout(() => {
-        closeGate();
-        setSubmitted(false);
-        setRating(0);
-      }, 3000);
+      // Show feedback form for 1-4 stars
+      setStage("feedback");
     }
+  };
+
+  const handleSubmitFeedback = () => {
+    // Feedback submitted (doesn't go anywhere for now)
+    setStage("thanks");
+    setTimeout(() => {
+      closeGate();
+    }, 2500);
   };
 
   if (!showGate) return null;
@@ -103,7 +104,7 @@ export function ReviewGate() {
           className="bg-brand-gray/50 border border-white/5 rounded-3xl p-10 text-center"
         >
           <AnimatePresence mode="wait">
-            {!submitted ? (
+            {stage === "rating" && (
               <motion.div
                 key="rating"
                 initial={{ opacity: 0 }}
@@ -143,44 +144,67 @@ export function ReviewGate() {
                   ))}
                 </div>
               </motion.div>
-            ) : (
+            )}
+
+            {stage === "feedback" && (
               <motion.div
                 key="feedback"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="space-y-6 text-left"
+              >
+                <div className="text-center mb-4">
+                  <h2 className="text-3xl font-bold mb-2 tracking-tighter">
+                    <ShinyText className="text-brand-accent">
+                      Tell us more
+                    </ShinyText>
+                  </h2>
+                  <p className="text-gray-400">
+                    Help us improve your next experience
+                  </p>
+                </div>
+
+                <textarea
+                  value={feedback}
+                  onChange={(e) => setFeedback(e.target.value)}
+                  placeholder="Share your feedback in English..."
+                  className="w-full min-h-32 bg-brand-dark border border-white/20 rounded-xl p-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-accent resize-none"
+                />
+
+                <button
+                  onClick={handleSubmitFeedback}
+                  className="w-full px-6 py-3 bg-brand-accent text-brand-dark font-semibold rounded-full hover:bg-brand-accent-hover transition-all active:scale-95"
+                >
+                  Submit Feedback
+                </button>
+              </motion.div>
+            )}
+
+            {stage === "thanks" && (
+              <motion.div
+                key="thanks"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
                 className="py-8"
               >
-                {rating === 5 ? (
-                  <div className="space-y-4">
-                    <div className="w-20 h-20 bg-brand-accent/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <Star
-                        size={40}
-                        className="text-brand-accent fill-brand-accent"
-                      />
-                    </div>
-                    <h2 className="text-3xl font-bold tracking-tighter">
-                      <ShinyText className="text-brand-accent">
-                        Thank you!
-                      </ShinyText>
-                    </h2>
-                    <p className="text-gray-400">
-                      Redirecting you to Google to share your 5-star
-                      experience...
-                    </p>
+                <div className="space-y-4">
+                  <div className="w-20 h-20 bg-brand-accent/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Star
+                      size={40}
+                      className="text-brand-accent fill-brand-accent"
+                    />
                   </div>
-                ) : (
-                  <div className="space-y-4">
-                    <h2 className="text-3xl font-bold tracking-tighter">
-                      <ShinyText className="text-brand-accent">
-                        Thank you for your feedback!
-                      </ShinyText>
-                    </h2>
-                    <p className="text-gray-400">
-                      We appreciate you taking the time to let us know how we
-                      can improve.
-                    </p>
-                  </div>
-                )}
+                  <h2 className="text-3xl font-bold tracking-tighter">
+                    <ShinyText className="text-brand-accent">
+                      Thank you!
+                    </ShinyText>
+                  </h2>
+                  <p className="text-gray-400">
+                    We appreciate your feedback and will use it to improve.
+                  </p>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>

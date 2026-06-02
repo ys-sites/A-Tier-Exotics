@@ -57,7 +57,7 @@ export function Hero() {
         playsInline
         className="absolute top-0 left-0 w-full h-[72vh] md:h-full object-cover"
         style={{ objectFit: "cover" }}
-      >
+      />
 
       {/* Dark luxury overlay to ensure text readability */}
       <div className="absolute top-0 left-0 w-full h-[72vh] md:h-full bg-gradient-to-t from-black via-black/20 to-transparent z-10" />
