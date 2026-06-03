@@ -229,23 +229,9 @@ export function BookingForm() {
                           size={18}
                         />
 
-                        {/* Desktop native picker */}
-                        <input
-                          required
-                          type="datetime-local"
-                          value={formState.date}
-                          onChange={(e) =>
-                            setFormState((prev) => ({
-                              ...prev,
-                              date: e.target.value,
-                            }))
-                          }
-                          className="hidden md:block w-full bg-brand-gray border border-white/5 py-4 pl-12 pr-4 text-white text-sm md:text-base rounded-[20px] focus:outline-none focus:border-brand-accent transition-all max-w-full"
-                        />
-
-                        {/* Mobile styled picker overlay */}
-                        <div className="md:hidden relative">
-                          <div className="w-full bg-brand-gray border border-white/5 rounded-[20px] py-4 pl-12 pr-4 text-white text-sm flex items-center transition-all">
+                        {/* Unified styled picker overlay for all devices */}
+                        <div className="relative">
+                          <div className="w-full bg-brand-gray border border-white/5 rounded-[20px] py-4 pl-12 pr-4 text-white text-sm md:text-base flex items-center transition-all min-h-[54px]">
                             <span className={formState.date ? "text-white" : "text-gray-500"}>
                               {formState.date
                                 ? new Date(formState.date).toLocaleString("en-US", {
@@ -268,7 +254,14 @@ export function BookingForm() {
                                 date: e.target.value,
                               }))
                             }
-                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                            onClick={(e) => {
+                              try {
+                                (e.currentTarget as any).showPicker();
+                              } catch (err) {
+                                // Fallback
+                              }
+                            }}
+                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                           />
                         </div>
                       </div>
