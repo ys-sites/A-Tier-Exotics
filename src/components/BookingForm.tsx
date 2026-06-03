@@ -25,17 +25,35 @@ export function BookingForm() {
     type: "transfer",
   });
 
-  const [status, setStatus] = useState<"idle" | "submitting" | "success">(
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
     "idle",
   );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("submitting");
 
-    setTimeout(() => {
-      setStatus("success");
-    }, 2500);
+    try {
+      const response = await fetch(
+        "https://services.leadconnectorhq.com/hooks/xWhJlfhgCoTZXNvpkG8x/webhook-trigger/5b11d38a-62ad-4918-8581-70f628f894b7",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formState),
+        }
+      );
+
+      if (response.ok) {
+        setStatus("success");
+      } else {
+        setStatus("error");
+      }
+    } catch (err) {
+      console.error("Webhook submission error:", err);
+      setStatus("error");
+    }
   };
 
   return (
@@ -162,6 +180,8 @@ export function BookingForm() {
                           <input
                             required
                             type="text"
+                            value={formState.name}
+                            onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                             className="w-full bg-brand-gray border border-white/5 py-4 pl-12 pr-4 text-white text-sm rounded-[20px] focus:outline-none focus:border-brand-accent transition-all"
                             placeholder="Full Name"
                           />
@@ -176,6 +196,8 @@ export function BookingForm() {
                           <input
                             required
                             type="tel"
+                            value={formState.phone}
+                            onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
                             className="w-full bg-brand-gray border border-white/5 py-4 pl-12 pr-4 text-white text-sm rounded-[20px] focus:outline-none focus:border-brand-accent transition-all"
                             placeholder="Phone Number"
                           />
@@ -192,6 +214,8 @@ export function BookingForm() {
                         <input
                           required
                           type="email"
+                          value={formState.email}
+                          onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                           className="w-full bg-brand-gray border border-white/5 py-4 pl-12 pr-4 text-white text-sm rounded-[20px] focus:outline-none focus:border-brand-accent transition-all"
                           placeholder="Email Address"
                         />
@@ -251,7 +275,16 @@ export function BookingForm() {
                     </div>
 
                     <div className="max-w-full overflow-hidden">
-                      <select className="w-full max-w-full bg-brand-gray border border-white/5 py-3 md:py-4 px-6 text-white text-sm md:text-base rounded-[20px] focus:outline-none focus:border-brand-accent transition-all appearance-none overflow-hidden">
+                      <select
+                        value={formState.type}
+                        onChange={(e) =>
+                          setFormState((prev) => ({
+                            ...prev,
+                            type: e.target.value,
+                          }))
+                        }
+                        className="w-full max-w-full bg-brand-gray border border-white/5 py-3 md:py-4 px-6 text-white text-sm md:text-base rounded-[20px] focus:outline-none focus:border-brand-accent transition-all appearance-none overflow-hidden"
+                      >
                         <option value="transfer">
                           Point-to-Point Transfer
                         </option>
@@ -271,6 +304,8 @@ export function BookingForm() {
                         <input
                           required
                           type="text"
+                          value={formState.origin}
+                          onChange={(e) => setFormState({ ...formState, origin: e.target.value })}
                           className="w-full bg-brand-gray border border-white/5 py-4 pl-12 pr-4 text-white text-sm rounded-[20px] focus:outline-none focus:border-brand-accent transition-all"
                           placeholder="Pick-up Location"
                         />
@@ -286,11 +321,19 @@ export function BookingForm() {
                         <input
                           required
                           type="text"
+                          value={formState.destination}
+                          onChange={(e) => setFormState({ ...formState, destination: e.target.value })}
                           className="w-full bg-brand-gray border border-white/5 py-4 pl-12 pr-4 text-white text-sm rounded-[20px] focus:outline-none focus:border-brand-accent transition-all"
                           placeholder="Drop-off Location"
                         />
                       </div>
                     </div>
+
+                    {status === "error" && (
+                      <div className="text-red-400 text-sm font-light text-center bg-red-500/10 border border-red-500/20 py-3 px-4 rounded-[16px] mt-4">
+                        There was an error submitting your inquiry. Please try again or call our concierge.
+                      </div>
+                    )}
 
                     <button
                       type="submit"
