@@ -94,7 +94,6 @@ const calculateCodeDimensions = (cardWidth: number, cardHeight: number) => {
 export function ScannerSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const cardLineRef = useRef<HTMLDivElement>(null);
-  const particleCanvasRef = useRef<HTMLCanvasElement>(null);
   const scannerCanvasRef = useRef<HTMLCanvasElement>(null);
 
   const [cards, setCards] = useState<string[]>([]);
@@ -112,193 +111,7 @@ export function ScannerSection() {
     setCards(initialCards);
   }, []);
 
-  // --- Particle System (Three.js) ---
-  useEffect(() => {
-    if (!particleCanvasRef.current) return;
-    const canvas = particleCanvasRef.current;
-
-    // Use an IIFE locally so it acts within the effect
-    let renderer: THREE.WebGLRenderer;
-    let scene: THREE.Scene;
-    let camera: THREE.OrthographicCamera;
-    let particles: THREE.Points;
-    let velocities: Float32Array;
-    let alphas: Float32Array;
-    let particleCount = 400;
-    let animationId: number;
-
-    const initParticles = () => {
-      scene = new THREE.Scene();
-      camera = new THREE.OrthographicCamera(
-        -window.innerWidth / 2,
-        window.innerWidth / 2,
-        125,
-        -125,
-        1,
-        1000,
-      );
-      camera.position.z = 100;
-
-      renderer = new THREE.WebGLRenderer({
-        canvas,
-        alpha: true,
-        antialias: true,
-      });
-      renderer.setSize(window.innerWidth, 250);
-      renderer.setClearColor(0x000000, 0);
-
-      const geometry = new THREE.BufferGeometry();
-      const positions = new Float32Array(particleCount * 3);
-      const colors = new Float32Array(particleCount * 3);
-      const sizes = new Float32Array(particleCount);
-      velocities = new Float32Array(particleCount);
-
-      const tCanvas = document.createElement("canvas");
-      tCanvas.width = 100;
-      tCanvas.height = 100;
-      const tCtx = tCanvas.getContext("2d");
-      if (tCtx) {
-        const half = tCanvas.width / 2;
-        const hue = 40; // align with brand gold
-        const gradient = tCtx.createRadialGradient(
-          half,
-          half,
-          0,
-          half,
-          half,
-          half,
-        );
-        gradient.addColorStop(0.025, "#fff");
-        gradient.addColorStop(0.1, `hsl(${hue}, 61%, 50%)`);
-        gradient.addColorStop(0.25, `hsl(${hue}, 64%, 20%)`);
-        gradient.addColorStop(1, "transparent");
-
-        tCtx.fillStyle = gradient;
-        tCtx.beginPath();
-        tCtx.arc(half, half, half, 0, Math.PI * 2);
-        tCtx.fill();
-      }
-      const texture = new THREE.CanvasTexture(tCanvas);
-
-      for (let i = 0; i < particleCount; i++) {
-        positions[i * 3] = (Math.random() - 0.5) * window.innerWidth * 2;
-        positions[i * 3 + 1] = (Math.random() - 0.5) * 250;
-        positions[i * 3 + 2] = 0;
-
-        colors[i * 3] = 1;
-        colors[i * 3 + 1] = 1;
-        colors[i * 3 + 2] = 1;
-
-        const orbitRadius = Math.random() * 200 + 100;
-        sizes[i] = (Math.random() * (orbitRadius - 60) + 60) / 8;
-        velocities[i] = Math.random() * 60 + 30;
-      }
-
-      geometry.setAttribute(
-        "position",
-        new THREE.BufferAttribute(positions, 3),
-      );
-      geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-      geometry.setAttribute("size", new THREE.BufferAttribute(sizes, 1));
-
-      alphas = new Float32Array(particleCount);
-      for (let i = 0; i < particleCount; i++) {
-        alphas[i] = (Math.random() * 8 + 2) / 10;
-      }
-      geometry.setAttribute("alpha", new THREE.BufferAttribute(alphas, 1));
-
-      const material = new THREE.ShaderMaterial({
-        uniforms: {
-          pointTexture: { value: texture },
-          size: { value: 15.0 },
-        },
-        vertexShader: `
-          attribute float alpha;
-          varying float vAlpha;
-          varying vec3 vColor;
-          uniform float size;
-          void main() {
-            vAlpha = alpha;
-            vColor = color;
-            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-            gl_PointSize = size;
-            gl_Position = projectionMatrix * mvPosition;
-          }
-        `,
-        fragmentShader: `
-          uniform sampler2D pointTexture;
-          varying float vAlpha;
-          varying vec3 vColor;
-          void main() {
-            gl_FragColor = vec4(vColor, vAlpha) * texture2D(pointTexture, gl_PointCoord);
-          }
-        `,
-        transparent: true,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false,
-        vertexColors: true,
-      });
-
-      particles = new THREE.Points(geometry, material);
-      scene.add(particles);
-    };
-
-    const animateParticles = () => {
-      animationId = requestAnimationFrame(animateParticles);
-      if (particles) {
-        const positions = particles.geometry.attributes.position
-          .array as Float32Array;
-        const alphaArr = particles.geometry.attributes.alpha
-          .array as Float32Array;
-        const time = Date.now() * 0.001;
-
-        for (let i = 0; i < particleCount; i++) {
-          positions[i * 3] += velocities[i] * 0.016;
-
-          if (positions[i * 3] > window.innerWidth / 2 + 100) {
-            positions[i * 3] = -window.innerWidth / 2 - 100;
-            positions[i * 3 + 1] = (Math.random() - 0.5) * 250;
-          }
-
-          positions[i * 3 + 1] += Math.sin(time + i * 0.1) * 0.5;
-
-          const twinkle = Math.floor(Math.random() * 10);
-          if (twinkle === 1 && alphaArr[i] > 0) {
-            alphaArr[i] -= 0.05;
-          } else if (twinkle === 2 && alphaArr[i] < 1) {
-            alphaArr[i] += 0.05;
-          }
-          alphaArr[i] = Math.max(0, Math.min(1, alphaArr[i]));
-        }
-
-        particles.geometry.attributes.position.needsUpdate = true;
-        particles.geometry.attributes.alpha.needsUpdate = true;
-      }
-      renderer.render(scene, camera);
-    };
-
-    const handleResize = () => {
-      camera.left = -window.innerWidth / 2;
-      camera.right = window.innerWidth / 2;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, 250);
-    };
-
-    initParticles();
-    animateParticles();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      cancelAnimationFrame(animationId);
-      if (renderer) renderer.dispose();
-      if (particles) {
-        scene.remove(particles);
-        particles.geometry.dispose();
-        (particles.material as THREE.Material).dispose();
-      }
-    };
-  }, []);
+  // Particle system removed for performance and cleaner presentation
 
   // --- Scroll Stream ---
   useEffect(() => {
@@ -749,7 +562,6 @@ export function ScannerSection() {
       </div>
 
       <div className="w-full relative h-[400px]" ref={containerRef}>
-        <canvas className="particleCanvas absolute inset-0 z-0" ref={particleCanvasRef}></canvas>
         <canvas className="absolute inset-0 z-30 pointer-events-none" ref={scannerCanvasRef} style={{ mixBlendMode: 'screen' }}></canvas>
 
         <div className="card-stream" id="cardStream">
@@ -761,7 +573,7 @@ export function ScannerSection() {
                     className="card-image bg-brand-dark object-cover w-full h-full absolute inset-0"
                     src={cardImages[index % cardImages.length]}
                     alt="2026 Rolls-Royce Cullinan — A-Tier Exotics fleet"
-                    loading="lazy"
+                    loading={index < 3 ? "eager" : "lazy"}
                     decoding="async"
                   />
                   <div className="w-full h-full border border-black/10 rounded-[15px] relative overflow-hidden">
