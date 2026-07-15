@@ -9,7 +9,7 @@ export function Hero() {
   // Resolve src ONCE, synchronously, before first render. No state swap, no reload.
   const [videoSrc] = useState(() =>
     window.matchMedia("(max-width: 768px)").matches
-      ? "https://cdn.mevoyages.com/A%20Tier%20Exotics/hero-mobile.mp4"
+      ? "https://cdn.mevoyages.com/A%20Tier%20Exotics/hero-mobile.mp4#t=10"
       : "https://cdn.mevoyages.com/A%20Tier%20Exotics/hero.mp4"
   );
 
@@ -20,17 +20,51 @@ export function Hero() {
     // Belt-and-suspenders for iOS autoplay policy
     video.defaultMuted = true;
     video.muted = true;
+
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    let handleTimeUpdate: (() => void) | null = null;
+
+    if (isMobile) {
+      // Seek to 10s initially
+      const setStart = () => {
+        if (video.currentTime < 10) {
+          video.currentTime = 10;
+        }
+      };
+      if (video.readyState >= 1) {
+        setStart();
+      } else {
+        video.addEventListener("loadedmetadata", setStart, { once: true });
+      }
+
+      // Intercept loops and force restart at 10s
+      handleTimeUpdate = () => {
+        if (video.currentTime < 9.8) {
+          video.currentTime = 10;
+        }
+      };
+      video.addEventListener("timeupdate", handleTimeUpdate);
+    }
+
     video.play().catch(() => {});
 
     // iOS Low Power Mode blocks autoplay → retry on first touch / tab return
     const retry = () => {
-      if (video.paused) video.play().catch(() => {});
+      if (video.paused) {
+        if (isMobile && video.currentTime < 10) {
+          video.currentTime = 10;
+        }
+        video.play().catch(() => {});
+      }
     };
     window.addEventListener("touchstart", retry, { once: true, passive: true });
     document.addEventListener("visibilitychange", retry);
     return () => {
       window.removeEventListener("touchstart", retry);
       document.removeEventListener("visibilitychange", retry);
+      if (handleTimeUpdate) {
+        video.removeEventListener("timeupdate", handleTimeUpdate);
+      }
     };
   }, []);
 

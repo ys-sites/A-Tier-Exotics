@@ -62,7 +62,7 @@ function VideoCard({
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           disablePictureInPicture
           disableRemotePlayback
           className="w-full h-full object-cover"
@@ -122,7 +122,7 @@ function CarouselCard({ src, permalink, alt }: { src: string[]; permalink: strin
             key={idx}
             src={imgSrc}
             alt={`${alt} slide ${idx + 1}`}
-            loading="lazy"
+            loading={idx === 0 ? "eager" : "lazy"}
             decoding="async"
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
               idx === currentIndex ? "opacity-100 z-0" : "opacity-0 z-[-1]"
@@ -197,10 +197,22 @@ function CarouselCard({ src, permalink, alt }: { src: string[]; permalink: strin
 export function InstagramFeed() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
+  const [isMobile, setIsMobile] = useState(false);
 
-  const [emblaRef] = useEmblaCarousel({ loop: true }, [
-    AutoScroll({ playOnInit: true, speed: 1, stopOnInteraction: false }),
-  ]);
+  React.useEffect(() => {
+    const media = window.matchMedia("(max-width: 768px)");
+    setIsMobile(media.matches);
+    const listener = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
+  }, []);
+
+  const [emblaRef] = useEmblaCarousel(
+    { loop: true },
+    isMobile
+      ? []
+      : [AutoScroll({ playOnInit: true, speed: 1, stopOnInteraction: false })]
+  );
 
   return (
     <motion.div
