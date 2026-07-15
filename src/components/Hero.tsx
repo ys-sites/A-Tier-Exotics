@@ -5,39 +5,34 @@ import { useEffect, useRef, useState } from "react";
 
 export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoSrc, setVideoSrc] = useState(
-    "https://cdn.mevoyages.com/A%20Tier%20Exotics/hero.mp4"
+
+  // Resolve src ONCE, synchronously, before first render. No state swap, no reload.
+  const [videoSrc] = useState(() =>
+    window.matchMedia("(max-width: 768px)").matches
+      ? "https://cdn.mevoyages.com/A%20Tier%20Exotics/hero-mobile.mp4"
+      : "https://cdn.mevoyages.com/A%20Tier%20Exotics/hero.mp4"
   );
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    if (window.innerWidth <= 768) {
-      setVideoSrc(
-        "https://cdn.mevoyages.com/A%20Tier%20Exotics/hero.mp4#t=10"
-      );
-    }
+    // Belt-and-suspenders for iOS autoplay policy
+    video.defaultMuted = true;
+    video.muted = true;
+    video.play().catch(() => {});
 
-    const handleVideoEnd = () => {
-      video.currentTime = window.innerWidth <= 768 ? 10 : 0;
-      video.play().catch((err) => console.log("Video loop failed:", err));
+    // iOS Low Power Mode blocks autoplay → retry on first touch / tab return
+    const retry = () => {
+      if (video.paused) video.play().catch(() => {});
     };
-
-    video.addEventListener("ended", handleVideoEnd);
-
+    window.addEventListener("touchstart", retry, { once: true, passive: true });
+    document.addEventListener("visibilitychange", retry);
     return () => {
-      video.removeEventListener("ended", handleVideoEnd);
+      window.removeEventListener("touchstart", retry);
+      document.removeEventListener("visibilitychange", retry);
     };
   }, []);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (video) {
-      video.load();
-      video.play().catch((err) => console.log("Autoplay play failed:", err));
-    }
-  }, [videoSrc]);
 
   const scrollToBooking = () => {
     document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" });
@@ -54,10 +49,26 @@ export function Hero() {
         src={videoSrc}
         autoPlay
         muted
+        loop
         playsInline
-        preload="metadata"
+        preload="auto"
+        disablePictureInPicture
+        disableRemotePlayback
+        poster={
+          window.matchMedia("(max-width: 768px)").matches
+            ? "https://cdn.mevoyages.com/A%20Tier%20Exotics/hero-poster-mobile.jpg"
+            : "https://cdn.mevoyages.com/A%20Tier%20Exotics/hero-poster.jpg"
+        }
+        onError={(e) => {
+          // Fallback: if hero-mobile.mp4 isn't uploaded yet, fall back to desktop file
+          const v = e.currentTarget;
+          if (v.src.includes("hero-mobile")) {
+            v.src = "https://cdn.mevoyages.com/A%20Tier%20Exotics/hero.mp4";
+            v.load();
+            v.play().catch(() => {});
+          }
+        }}
         className="absolute top-0 left-0 w-full h-[72vh] md:h-full object-cover"
-        style={{ objectFit: "cover" }}
       />
 
       {/* Dark luxury overlay to ensure text readability */}

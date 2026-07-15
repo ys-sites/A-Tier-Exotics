@@ -66,3 +66,11 @@ h1, h2, h3, h4, h5, h6 {
     overflow-x: hidden;
   }
 }
+
+/* Hide iOS Safari native video overlay play glyphs */
+video::-webkit-media-controls-start-playback-button,
+video::-webkit-media-controls-overlay-play-button,
+video::-webkit-media-controls {
+  display: none !important;
+  -webkit-appearance: none;
+}

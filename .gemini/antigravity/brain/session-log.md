@@ -1,20 +1,23 @@
-# Session Log — SEO & Quality Optimizations
+# Session Log — SEO, Quality & Instagram Feed System Optimizations
 
 ## Session Summary
-- **Hero Video Update**: Changed the hero background video URL to the new high-quality Mevoyages CDN link (`https://cdn.mevoyages.com/A%20Tier%20Exotics/hero.mp4`).
-- **About Section Instagram Video Update**: Changed the local video path `/ig.mp4` to the remote high-quality CDN link (`https://cdn.mevoyages.com/A%20Tier%20Exotics/ig.mp4`) in [AboutSection.tsx](file:///c:/Users/Sharafath/Desktop/Website/A%20Tier%20Exotics/a-tier-exotics/src/components/AboutSection.tsx).
-- **SEO/AEO/GEO Optimization**:
-  - Implemented comprehensive Open Graph (OG), Twitter Card, and standard search metadata (title, description, keywords, robots, canonical link) in the main `index.html`.
-  - Added schema.org JSON-LD structured data graph including `CarRental` (LocalBusiness profile) and `FAQPage` objects. This provides search and generative AI engines (AEO/GEO) with structured, reliable business credentials and answers.
-- **FAQ Section Creation**: Created a custom, high-end [FAQSection.tsx](file:///c:/Users/Sharafath/Desktop/Website/A%20Tier%20Exotics/a-tier-exotics/src/components/FAQSection.tsx) component using `useState` and Framer Motion accordions to present questions clearly without visual clutter.
-- **App Layout Integration**: Rendered the `<FAQSection />` component inside [App.tsx](file:///c:/Users/Sharafath/Desktop/Website/A%20Tier%20Exotics/a-tier-exotics/src/App.tsx) immediately above the booking form.
-- **Mobile/Performance Stability**:
-  - Replaced the hero container height `min-h-screen` with `min-h-[100dvh]` to eliminate mobile layout/viewport shifts (iOS Safari).
-  - Added `preload="metadata"` to the background video tag to enhance page load speeds.
+- **Hero Video & Performance Fix**:
+  - Re-architected background video in [Hero.tsx](file:///c:/Users/Sharafath/Desktop/Website/A%20Tier%20Exotics/a-tier-exotics/src/components/Hero.tsx) to resolve the source URL synchronously on render (`hero-mobile.mp4` on mobile and `hero.mp4` on desktop) preventing double loading.
+  - Replaced manual looping trigger listeners with native `loop` and set `preload="auto"`.
+  - Added visibility and touch listeners to play/retry if blocked by iOS Low Power Mode.
+  - Overrode WebKit video controls in [index.css](file:///c:/Users/Sharafath/Desktop/Website/A%20Tier%20Exotics/a-tier-exotics/src/index.css) to eliminate iOS play button flashes.
+  - Added `preconnect` and `dns-prefetch` link tags in [index.html](file:///c:/Users/Sharafath/Desktop/Website/A%20Tier%20Exotics/a-tier-exotics/index.html) to pre-warm the CDN connections.
+- **Instagram Feed System**:
+  - Renamed `public/IG POST` to `public/ig-posts` and normalized asset filenames (`ig-01.jpg` to `ig-05.jpg` and `ig-reel-01.mp4`/`ig-reel-02.mp4`).
+  - Created [instagramPosts.ts](file:///c:/Users/Sharafath/Desktop/Website/A%20Tier%20Exotics/a-tier-exotics/src/data/instagramPosts.ts) mapping assets, including grouping the 5 images into a single `carousel` type post.
+  - Created [InstagramFeed.tsx](file:///c:/Users/Sharafath/Desktop/Website/A%20Tier%20Exotics/a-tier-exotics/src/components/InstagramFeed.tsx) rendering an auto-scrolling Embla carousel with center hover views and bandwidth-friendly video elements.
+  - Created an inner carousel slider component for the slide card to scroll through the 5 runway images with overlay navigation buttons (equipped with `stopPropagation` to prevent anchor clicks).
+  - Wired `<InstagramFeed />` inside [AboutSection.tsx](file:///c:/Users/Sharafath/Desktop/Website/A%20Tier%20Exotics/a-tier-exotics/src/components/AboutSection.tsx).
 
 ## Decisions Made
-- **Structured Data Integration**: Chose to deploy the JSON-LD schemas directly in the static `index.html` file to ensure crawlers can index it immediately without relying on JavaScript execution.
-- **FAQ Content Selection**: The FAQ content addresses high-intent search terms (pricing, chauffeur requirements, fleet specs, geographic service area) to optimize for answer-retrieval performance in search engines.
+- **Inner Slider Interaction**: Designed the sub-carousel navigation buttons with `e.stopPropagation()` and `e.preventDefault()` to allow slide navigation inside the card without triggering the anchor tag link redirecting to Instagram.
+- **Dynamic Video Mounting**: Configured feed video cards to check `parentInView` before rendering video tags, avoiding concurrent media downloads on page load.
 
 ## Verification
 - Ran `npm run build` locally. The TypeScript compiler and Vite bundler completed with zero errors.
+

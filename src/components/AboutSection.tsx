@@ -3,6 +3,7 @@ import { motion, useInView } from "motion/react";
 import { Play, Instagram, CheckCircle } from "lucide-react";
 import ShinyText from "./ui/ShinyText";
 import BlurText from "./ui/BlurText";
+import { InstagramFeed } from "./InstagramFeed";
 
 export function AboutSection() {
   const ref = useRef(null);
@@ -173,6 +174,11 @@ export function AboutSection() {
               </div>
             </motion.div>
           </div>
+        </div>
+
+        {/* Instagram Feed Section */}
+        <div className="mt-20 md:mt-28">
+          <InstagramFeed />
         </div>
       </div>
     </section>
