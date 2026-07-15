@@ -5,11 +5,11 @@ import ShinyText from "./ui/ShinyText";
 import { FlipWords } from "./ui/flip-words";
 
 const cardImages = [
-  "/img1.jpg",
-  "/img 2.jpg",
-  "/img 3.jpg",
-  "/img 4.webp",
-  "/img 5.jpg",
+  "/fleet/scanner-cullinan-01.webp",
+  "/fleet/scanner-cullinan-02.webp",
+  "/fleet/scanner-cullinan-03.webp",
+  "/fleet/scanner-cullinan-04.webp",
+  "/fleet/scanner-cullinan-05.webp",
 ];
 
 const generateCode = (width: number, height: number) => {
@@ -760,8 +760,9 @@ export function ScannerSection() {
                   <img
                     className="card-image bg-brand-dark object-cover w-full h-full absolute inset-0"
                     src={cardImages[index % cardImages.length]}
-                    alt="Luxury Fleet"
+                    alt="2026 Rolls-Royce Cullinan — A-Tier Exotics fleet"
                     loading="lazy"
+                    decoding="async"
                   />
                   <div className="w-full h-full border border-black/10 rounded-[15px] relative overflow-hidden">
                   </div>

@@ -126,6 +126,7 @@ function IconContainer({
   mouseX: MotionValue;
   title: string;
   href: string;
+  key?: string;
 }) {
   let ref = useRef<HTMLDivElement>(null);
 
