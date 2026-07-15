@@ -13,7 +13,7 @@ export const instagramPosts: IgPost[] = [
     id: "ig-1",
     type: "video",
     src: "/ig-posts/ig-reel-01.mp4",
-    permalink: IG_PROFILE_URL,
+    permalink: "https://www.instagram.com/frenchmontana/",
     alt: "A-Tier Exotics reel"
   },
   {
@@ -30,10 +30,17 @@ export const instagramPosts: IgPost[] = [
     alt: "A-Tier Exotics Instagram carousel post"
   },
   {
+    id: "ig-4",
+    type: "video",
+    src: "/ig-posts/ig-reel-03.mp4",
+    permalink: "https://www.instagram.com/reel/DZaXbDFuBOJ/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+    alt: "A-Tier Exotics reel"
+  },
+  {
     id: "ig-3",
     type: "video",
     src: "/ig-posts/ig-reel-02.mp4",
-    permalink: IG_PROFILE_URL,
+    permalink: "https://www.instagram.com/frenchmontana/",
     alt: "A-Tier Exotics reel"
   }
 ];

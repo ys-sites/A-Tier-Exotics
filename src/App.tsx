@@ -38,8 +38,8 @@ export default function App() {
         <Fleet />
         <SocialProof />
         <ScannerSection />
-        <FAQSection />
         <BookingForm />
+        <FAQSection />
       </main>
       <Footer />
     </div>
