@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoSrc, setVideoSrc] = useState(
-    "https://res.cloudinary.com/dmnoikwb9/video/upload/hero_s92vfw.mp4"
+    "https://cdn.mevoyages.com/A%20Tier%20Exotics/hero.mp4"
   );
 
   useEffect(() => {
@@ -15,7 +15,7 @@ export function Hero() {
 
     if (window.innerWidth <= 768) {
       setVideoSrc(
-        "https://res.cloudinary.com/dmnoikwb9/video/upload/hero_s92vfw.mp4#t=10"
+        "https://cdn.mevoyages.com/A%20Tier%20Exotics/hero.mp4#t=10"
       );
     }
 
@@ -46,7 +46,7 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-black"
+      className="relative min-h-[100dvh] w-full flex items-center justify-center overflow-hidden bg-black"
     >
       {/* Video Background */}
       <video
@@ -55,6 +55,7 @@ export function Hero() {
         autoPlay
         muted
         playsInline
+        preload="metadata"
         className="absolute top-0 left-0 w-full h-[72vh] md:h-full object-cover"
         style={{ objectFit: "cover" }}
       />

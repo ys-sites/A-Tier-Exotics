@@ -5,6 +5,7 @@ import { AboutSection } from "./components/AboutSection";
 import { Fleet } from "./components/Fleet";
 import { SocialProof } from "./components/SocialProof";
 import { ScannerSection } from "./components/ScannerSection";
+import { FAQSection } from "./components/FAQSection";
 import { BookingForm } from "./components/BookingForm";
 import { Footer } from "./components/Footer";
 import { ReviewGate } from "./components/ReviewGate";
@@ -37,6 +38,7 @@ export default function App() {
         <Fleet />
         <SocialProof />
         <ScannerSection />
+        <FAQSection />
         <BookingForm />
       </main>
       <Footer />
