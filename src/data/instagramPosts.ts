@@ -4,6 +4,7 @@ export type IgPost = {
   src: string | string[];
   permalink: string;
   alt: string;
+  maxDuration?: number;
 };
 
 export const IG_PROFILE_URL = "https://www.instagram.com/atierexotics";
@@ -34,7 +35,8 @@ export const instagramPosts: IgPost[] = [
     type: "video",
     src: "/ig-posts/ig-reel-03.mp4",
     permalink: "https://www.instagram.com/reel/DZaXbDFuBOJ/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
-    alt: "A-Tier Exotics reel"
+    alt: "A-Tier Exotics reel",
+    maxDuration: 10
   },
   {
     id: "ig-3",

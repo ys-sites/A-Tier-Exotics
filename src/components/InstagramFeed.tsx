@@ -39,11 +39,13 @@ function VideoCard({
   permalink,
   alt,
   parentInView,
+  maxDuration,
 }: {
   src: string;
   permalink: string;
   alt: string;
   parentInView: boolean;
+  maxDuration?: number;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -66,6 +68,11 @@ function VideoCard({
           disablePictureInPicture
           disableRemotePlayback
           className="w-full h-full object-cover"
+          onTimeUpdate={(e) => {
+            if (maxDuration && e.currentTarget.currentTime >= maxDuration) {
+              e.currentTarget.currentTime = 0;
+            }
+          }}
         />
       ) : (
         <div className="w-full h-full bg-brand-gray" />
@@ -262,6 +269,7 @@ export function InstagramFeed() {
                   permalink={post.permalink}
                   alt={post.alt}
                   parentInView={isInView}
+                  maxDuration={post.maxDuration}
                 />
               )}
               {post.type === "carousel" && (
