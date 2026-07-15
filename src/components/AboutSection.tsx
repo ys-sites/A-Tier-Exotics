@@ -125,7 +125,7 @@ export function AboutSection() {
                 </div>
               </a>
               <video
-                src="/ig.mp4"
+                src="https://cdn.mevoyages.com/A%20Tier%20Exotics/ig.mp4"
                 autoPlay
                 muted
                 loop

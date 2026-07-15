@@ -2,6 +2,7 @@
 
 ## Session Summary
 - **Hero Video Update**: Changed the hero background video URL to the new high-quality Mevoyages CDN link (`https://cdn.mevoyages.com/A%20Tier%20Exotics/hero.mp4`).
+- **About Section Instagram Video Update**: Changed the local video path `/ig.mp4` to the remote high-quality CDN link (`https://cdn.mevoyages.com/A%20Tier%20Exotics/ig.mp4`) in [AboutSection.tsx](file:///c:/Users/Sharafath/Desktop/Website/A%20Tier%20Exotics/a-tier-exotics/src/components/AboutSection.tsx).
 - **SEO/AEO/GEO Optimization**:
   - Implemented comprehensive Open Graph (OG), Twitter Card, and standard search metadata (title, description, keywords, robots, canonical link) in the main `index.html`.
   - Added schema.org JSON-LD structured data graph including `CarRental` (LocalBusiness profile) and `FAQPage` objects. This provides search and generative AI engines (AEO/GEO) with structured, reliable business credentials and answers.
