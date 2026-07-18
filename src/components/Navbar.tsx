@@ -58,7 +58,7 @@ export function Navbar() {
           <div className="hidden md:flex items-center z-10 relative">
             <a
               href="tel:+18005550199"
-              className="flex items-center space-x-2 bg-brand-accent text-brand-dark font-semibold tracking-wide transition-colors hover:bg-brand-accent-hover px-6 py-2.5 rounded-[32px]"
+              className="flex items-center space-x-2 bg-brand-accent text-brand-dark font-semibold tracking-wide hover:bg-brand-accent-hover hover:shadow-[0_0_20px_rgba(224,205,173,0.4)] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 px-6 py-2.5 rounded-[32px] cursor-pointer"
             >
               <Phone size={16} />
               <span>Call Us</span>

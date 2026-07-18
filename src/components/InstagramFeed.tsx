@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "motion/react";
 import { Instagram, ChevronLeft, ChevronRight } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
@@ -21,9 +21,9 @@ function ImageCard({ src, permalink, alt }: { src: string; permalink: string; al
         decoding="async"
         className="w-full h-full object-cover"
       />
-      {/* Hover Overlay Center */}
-      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
-        <div className="transform scale-95 group-hover:scale-100 transition-transform duration-300 flex flex-col items-center justify-center">
+      {/* Hover Overlay Center - Desktop Only */}
+      <div className="absolute inset-0 bg-black/0 md:group-hover:bg-black/40 transition-colors duration-300 flex flex-col items-center justify-center opacity-0 md:group-hover:opacity-100 pointer-events-none">
+        <div className="transform scale-95 md:group-hover:scale-100 transition-transform duration-300 flex flex-col items-center justify-center">
           <Instagram className="text-white mb-2" size={24} />
           <span className="text-white text-xs font-semibold uppercase tracking-widest">
             View Post
@@ -48,6 +48,28 @@ function VideoCard({
   maxDuration?: number;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (parentInView && videoRef.current) {
+      const video = videoRef.current;
+      video.defaultMuted = true;
+      video.muted = true;
+      video.play().catch(() => {});
+
+      // Add touch start / pointerdown retries to guarantee play in iOS low power mode
+      const playVideo = () => {
+        if (video.paused) {
+          video.play().catch(() => {});
+        }
+      };
+      window.addEventListener("touchstart", playVideo, { once: true, passive: true });
+      window.addEventListener("pointerdown", playVideo, { once: true, passive: true });
+      return () => {
+        window.removeEventListener("touchstart", playVideo);
+        window.removeEventListener("pointerdown", playVideo);
+      };
+    }
+  }, [parentInView]);
 
   return (
     <a
@@ -81,9 +103,9 @@ function VideoCard({
       <div className="absolute top-3 right-3 bg-black/50 backdrop-blur rounded-full p-1.5 z-10">
         <Instagram size={16} className="text-white" />
       </div>
-      {/* Hover Overlay Center */}
-      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
-        <div className="transform scale-95 group-hover:scale-100 transition-transform duration-300 flex flex-col items-center justify-center">
+      {/* Hover Overlay Center - Desktop Only */}
+      <div className="absolute inset-0 bg-black/0 md:group-hover:bg-black/40 transition-colors duration-300 flex flex-col items-center justify-center opacity-0 md:group-hover:opacity-100 pointer-events-none">
+        <div className="transform scale-95 md:group-hover:scale-100 transition-transform duration-300 flex flex-col items-center justify-center">
           <Instagram className="text-white mb-2" size={24} />
           <span className="text-white text-xs font-semibold uppercase tracking-widest">
             View Post
@@ -188,9 +210,9 @@ function CarouselCard({ src, permalink, alt }: { src: string[]; permalink: strin
         </svg>
       </div>
 
-      {/* Hover Overlay Center */}
-      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
-        <div className="transform scale-95 group-hover:scale-100 transition-transform duration-300 flex flex-col items-center justify-center">
+      {/* Hover Overlay Center - Desktop Only */}
+      <div className="absolute inset-0 bg-black/0 md:group-hover:bg-black/40 transition-colors duration-300 flex flex-col items-center justify-center opacity-0 md:group-hover:opacity-100 pointer-events-none">
+        <div className="transform scale-95 md:group-hover:scale-100 transition-transform duration-300 flex flex-col items-center justify-center">
           <Instagram className="text-white mb-2" size={24} />
           <span className="text-white text-xs font-semibold uppercase tracking-widest">
             View Post

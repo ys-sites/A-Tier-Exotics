@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { motion, useInView } from "motion/react";
 import { Play, Instagram, CheckCircle } from "lucide-react";
 import ShinyText from "./ui/ShinyText";
@@ -8,6 +8,29 @@ import { InstagramFeed } from "./InstagramFeed";
 export function AboutSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.defaultMuted = true;
+    video.muted = true;
+    video.play().catch(() => {});
+
+    // Interactive fallback for mobile browsers (e.g. low power mode)
+    const playVideo = () => {
+      if (video.paused) {
+        video.play().catch(() => {});
+      }
+    };
+    window.addEventListener("touchstart", playVideo, { once: true, passive: true });
+    window.addEventListener("pointerdown", playVideo, { once: true, passive: true });
+    return () => {
+      window.removeEventListener("touchstart", playVideo);
+      window.removeEventListener("pointerdown", playVideo);
+    };
+  }, []);
 
   return (
     <section
@@ -119,13 +142,15 @@ export function AboutSection() {
                 rel="noopener noreferrer"
                 className="absolute inset-0 z-10 cursor-pointer"
               >
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 scale-75 group-hover:scale-100 border border-white/30">
+                {/* Desktop-only Hover Play Overlay */}
+                <div className="absolute inset-0 bg-black/0 md:group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 scale-75 md:group-hover:scale-100 border border-white/30">
                     <Play className="text-white fill-white ml-1" size={24} />
                   </div>
                 </div>
               </a>
               <video
+                ref={videoRef}
                 src="https://cdn.mevoyages.com/A%20Tier%20Exotics/ig.mp4"
                 autoPlay
                 muted

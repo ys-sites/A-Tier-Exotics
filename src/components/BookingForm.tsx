@@ -90,7 +90,7 @@ export function BookingForm() {
               </p>
               <a
                 href="tel:+18005550199"
-                className="inline-flex items-center justify-center w-full sm:w-auto px-10 py-4 bg-brand-accent text-brand-dark text-sm font-semibold tracking-wide rounded-full hover:bg-brand-accent-hover transition-colors"
+                className="inline-flex items-center justify-center w-full sm:w-auto px-10 py-4 bg-brand-accent text-brand-dark text-sm font-semibold tracking-wide rounded-full hover:bg-brand-accent-hover hover:shadow-[0_0_25px_rgba(224,205,173,0.45)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md cursor-pointer"
               >
                 Call +1 (800) 555-0199
               </a>
@@ -330,7 +330,7 @@ export function BookingForm() {
 
                     <button
                       type="submit"
-                      className="w-full py-4 mt-6 bg-brand-accent hover:bg-brand-accent-hover text-brand-dark font-semibold tracking-wide text-base rounded-full transition-colors flex items-center justify-center gap-3 shadow-md"
+                      className="w-full py-4 mt-6 bg-brand-accent hover:bg-brand-accent-hover hover:shadow-[0_0_25px_rgba(224,205,173,0.45)] hover:scale-[1.01] active:scale-[0.99] text-brand-dark font-semibold tracking-wide text-base rounded-full transition-all duration-300 flex items-center justify-center gap-3 shadow-lg cursor-pointer"
                     >
                       Submit Booking Inquiry
                     </button>

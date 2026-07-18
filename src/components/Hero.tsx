@@ -145,13 +145,13 @@ export function Hero() {
         >
           <button
             onClick={scrollToBooking}
-            className="px-10 py-4 bg-brand-accent text-brand-dark text-base font-semibold tracking-wide rounded-full hover:bg-brand-accent-hover transition-all duration-300 w-full sm:w-auto shadow-lg"
+            className="px-10 py-4 bg-brand-accent text-brand-dark text-base font-semibold tracking-wide rounded-full hover:bg-brand-accent-hover hover:shadow-[0_0_25px_rgba(224,205,173,0.45)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 w-full sm:w-auto shadow-lg cursor-pointer"
           >
             Reserve Your Journey
           </button>
           <a
             href="tel:+18005550199"
-            className="px-10 py-4 bg-white/10 backdrop-blur-md text-white border border-white/20 text-base font-semibold tracking-wide rounded-full hover:bg-white/20 transition-all duration-300 w-full sm:w-auto"
+            className="px-10 py-4 bg-white/10 backdrop-blur-md text-white border border-white/20 text-base font-semibold tracking-wide rounded-full hover:bg-white/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 w-full sm:w-auto text-center"
           >
             Call for Rates
           </a>
