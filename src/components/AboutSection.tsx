@@ -12,7 +12,7 @@ export function AboutSection() {
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !isInView) return;
 
     video.defaultMuted = true;
     video.muted = true;
@@ -30,7 +30,7 @@ export function AboutSection() {
       window.removeEventListener("touchstart", playVideo);
       window.removeEventListener("pointerdown", playVideo);
     };
-  }, []);
+  }, [isInView]);
 
   return (
     <section
@@ -38,11 +38,11 @@ export function AboutSection() {
       id="about"
       className="bg-brand-dark py-24 md:py-32 px-6 relative overflow-hidden"
     >
-      {/* Background aesthetic elements */}
+      {/* Background aesthetic elements - Deferred Load */}
       <div
-        className="absolute top-0 right-0 w-full h-full opacity-[0.25] pointer-events-none grayscale mix-blend-luminosity transform md:scale-150 scale-100 md:scale-150 origin-top-right md:translate-x-1/4 md:-translate-y-1/4 translate-x-0 md:translate-x-0 translate-y-0 blur-sm"
+        className="absolute top-0 right-0 w-full h-full opacity-[0.25] pointer-events-none grayscale mix-blend-luminosity transform md:scale-150 scale-100 md:scale-150 origin-top-right md:translate-x-1/4 md:-translate-y-1/4 translate-x-0 md:translate-x-0 translate-y-0 blur-sm transition-opacity duration-1000"
         style={{
-          backgroundImage: "url(/french-montana-coupe-du-monde-des-clubs.webp)",
+          backgroundImage: isInView ? "url(/french-montana-coupe-du-monde-des-clubs.webp)" : "none",
           backgroundSize: "cover",
           backgroundPosition: "center center",
         }}
@@ -151,7 +151,7 @@ export function AboutSection() {
               </a>
               <video
                 ref={videoRef}
-                src="https://cdn.mevoyages.com/A%20Tier%20Exotics/ig.mp4"
+                src={isInView ? "https://cdn.mevoyages.com/A%20Tier%20Exotics/ig.mp4" : undefined}
                 autoPlay
                 muted
                 loop

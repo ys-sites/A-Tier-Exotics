@@ -45,6 +45,8 @@ export function Fleet() {
               src="/royce.avif"
               alt="2026 Rolls-Royce Cullinan"
               className="w-full h-auto max-w-xl rounded-3xl object-cover"
+              loading="lazy"
+              decoding="async"
             />
           </div>
 
@@ -54,6 +56,8 @@ export function Fleet() {
               src="/royce.avif"
               alt="2026 Rolls-Royce Cullinan"
               className="w-full h-auto max-w-md rounded-3xl object-cover"
+              loading="lazy"
+              decoding="async"
             />
           </div>
         </div>
