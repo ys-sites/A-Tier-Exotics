@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "motion/react";
 import { Play, Instagram, CheckCircle } from "lucide-react";
 import ShinyText from "./ui/ShinyText";
@@ -9,10 +9,19 @@ export function AboutSection() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [loadVideo, setLoadVideo] = useState(false);
+
+  useEffect(() => {
+    // Delay loading the video by 2 seconds after page mount
+    const timer = setTimeout(() => {
+      setLoadVideo(true);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || !isInView) return;
+    if (!video || !loadVideo) return;
 
     video.defaultMuted = true;
     video.muted = true;
@@ -30,7 +39,7 @@ export function AboutSection() {
       window.removeEventListener("touchstart", playVideo);
       window.removeEventListener("pointerdown", playVideo);
     };
-  }, [isInView]);
+  }, [loadVideo]);
 
   return (
     <section
@@ -42,7 +51,7 @@ export function AboutSection() {
       <div
         className="absolute top-0 right-0 w-full h-full opacity-[0.25] pointer-events-none grayscale mix-blend-luminosity transform md:scale-150 scale-100 md:scale-150 origin-top-right md:translate-x-1/4 md:-translate-y-1/4 translate-x-0 md:translate-x-0 translate-y-0 blur-sm transition-opacity duration-1000"
         style={{
-          backgroundImage: isInView ? "url(/french-montana-coupe-du-monde-des-clubs.webp)" : "none",
+          backgroundImage: loadVideo ? "url(/french-montana-coupe-du-monde-des-clubs.webp)" : "none",
           backgroundSize: "cover",
           backgroundPosition: "center center",
         }}
@@ -151,11 +160,12 @@ export function AboutSection() {
               </a>
               <video
                 ref={videoRef}
-                src={isInView ? "https://cdn.mevoyages.com/A%20Tier%20Exotics/ig.mp4" : undefined}
+                src={loadVideo ? "https://cdn.mevoyages.com/A%20Tier%20Exotics/ig.mp4" : undefined}
                 autoPlay
                 muted
                 loop
                 playsInline
+                preload="auto"
                 className="absolute inset-0 w-full h-full object-cover"
               />
 
